@@ -59,6 +59,8 @@ PostgreSQL 14+
 ### Backend Setup
 
 ```bash
+#install the Tool
+git clone https://github.com/minalhassan/bugbounty-scanner
 # Clone and navigate
 cd bugbounty-scanner
 
