@@ -1,0 +1,92 @@
+# ============================================================
+# AI Bug Bounty Scanner — Configuration
+# ============================================================
+
+scanner:
+  max_depth: 5
+  max_threads: 20
+  timeout: 30
+  rate_limit_rps: 10
+  user_agent: "Mozilla/5.0 (compatible; BugBountyScanner/1.0)"
+  verify_ssl: false
+  follow_redirects: true
+  max_urls_per_scan: 2000
+
+recon:
+  subdomain_wordlist: "wordlists/subdomains.txt"
+  enable_crtsh: true
+  enable_whois: true
+  enable_port_scan: false  # Set true for full port scanning (requires nmap)
+  port_scan_top_n: 20
+
+crawler:
+  max_pages: 500
+  extract_js_endpoints: true
+  extract_forms: true
+  follow_external_links: false
+  skip_extensions:
+    - .jpg .jpeg .png .gif .svg .ico .css .woff .woff2 .mp4 .pdf .zip
+
+modules:
+  sqli:
+    enabled: true
+    techniques: [error_based, boolean_based, time_based]
+    time_threshold: 2.5
+    max_payloads_per_param: 10
+
+  xss:
+    enabled: true
+    techniques: [reflected, dom_based]
+    waf_bypass: true
+
+  cmdi:
+    enabled: true
+
+  idor:
+    enabled: true
+    enumerate_range: 3
+
+  auth:
+    enabled: true
+    test_default_creds: true
+    test_jwt: true
+
+  upload:
+    enabled: false  # Disabled by default — use carefully
+
+  traversal:
+    enabled: true
+
+  api:
+    enabled: true
+
+ai_engine:
+  confidence_threshold: 0.65
+  learning_enabled: true
+  max_attack_vectors: 20
+  adaptive_payloads: true
+
+risk_scoring:
+  cvss_version: "3.1"
+  auto_escalate_on_chain: true
+  confidence_weight: 0.5
+
+reporting:
+  formats:
+    - html
+    - json
+    - markdown
+  output_dir: "reports"
+  include_poc: true
+  include_request_dump: false  # Enable for full HTTP request logging
+
+dashboard:
+  enabled: true
+  host: "localhost"
+  port: 3000
+  api_url: "http://localhost:8000"
+
+logging:
+  level: "INFO"
+  file: "logs/scanner.log"
+  rotation: "10 MB"
